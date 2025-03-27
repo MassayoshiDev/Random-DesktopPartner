@@ -1,10 +1,32 @@
 -- Código escrito em Luau, não feito necessáriamente para funcionar, mas para ter uma base do que será feito.
 
 local ReadyToDecide = true
-local Inative = false
+local PartnerSprite = game.ReplicatedStorage.PartnerFrame
+-- Consideirando que a tela do monitor é 1920px por 1080px
+local XScreen = 1920
+local YScreen = 1080
+
+local function GoTo(WalkType)
+  if WalkType == "Random" then
+    local XScreen = math.random(1,1920)
+    local YScreen = math.random(1, 1080)
+    PartnerSprite.Position = Vector3.new(XScreen, YScreen)
+  elseif WalkType == "GetMessage" then
+    local DecideSide = math.random(1,2)
+    if DecideSide == 1 then
+      -- Esquerda
+      local XScreen = 0
+      local YScreen = math.random(1, 1080)
+    else
+      -- Direita
+      local XScreen = 1920
+      local YScreen = math.random(1, 1080)
+    end
+  end
+end
 
 local function MainCore()
-
+  
 end
 
 local function DecideAction()
@@ -12,12 +34,13 @@ local function DecideAction()
   if Decision == 1 then
       -- Ficar Inativo
       ReadyToDecide = false
+      task.spawn(Goto("Random"))
       wait(10)
       ReadyToDecide = true
   elseif Decision == 2 then
     -- Tomar uma ação
     ReadyToDecide = false
-
+    task.spawn(MainCore())
   end
 end
 
