@@ -1,1 +1,29 @@
-Start Repository
+-- Código escrito em Luau, não feito necessáriamente para funcionar, mas para ter uma base do que será feito.
+
+local ReadyToDecide = true
+local Inative = false
+
+local function MainCore()
+
+end
+
+local function DecideAction()
+  local Decision = math.random(1,2)
+  if Decision == 1 then
+      -- Ficar Inativo
+      ReadyToDecide = false
+      wait(10)
+      ReadyToDecide = true
+  elseif Decision == 2 then
+    -- Tomar uma ação
+    ReadyToDecide = false
+
+  end
+end
+
+while true do
+  wait(0.1)
+  if ReadyToDecide == true then
+    task.spawn(DecideAction())
+  end
+end
