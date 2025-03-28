@@ -21,6 +21,7 @@ local function GoTo(WalkType)
       local XScreen = 1920
     end
     local YScreen = math.random(1, 1080)
+    PartnerSprite.Position = Vector3.new(XScreen, YScreen)
   end
 end
 
@@ -32,13 +33,11 @@ local function DecideAction()
   local Decision = math.random(1,2)
   if Decision == 1 then
       -- Ficar Inativo
-      ReadyToDecide = false
       task.spawn(Goto("Random"))
       wait(10)
       ReadyToDecide = true
   elseif Decision == 2 then
     -- Tomar uma ação
-    ReadyToDecide = false
     task.spawn(MainCore())
   end
 end
@@ -46,6 +45,7 @@ end
 while true do
   wait(0.1)
   if ReadyToDecide == true then
+    ReadyToDecide = false
     task.spawn(DecideAction())
   end
 end
